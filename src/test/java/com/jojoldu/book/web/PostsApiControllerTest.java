@@ -34,7 +34,7 @@ public class PostsApiControllerTest {
     @Autowired
     private PostsRepository postsRepository;
 
-    @After
+    @Test
     public void tearDown() throws Exception{
         String title = "title";
         String content = "content";
@@ -86,5 +86,4 @@ public class PostsApiControllerTest {
         assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle); // 업데이트된 값으로 비교
         assertThat(all.get(0).getContent()).isEqualTo(expectedContent); // 업데이트된 값으로 비교
     }
-
 }
