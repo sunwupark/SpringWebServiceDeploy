@@ -4,7 +4,6 @@ import com.jojoldu.book.web.domain.posts.Posts;
 import com.jojoldu.book.web.domain.posts.PostsRepository;
 import com.jojoldu.book.web.dto.PostsSaveRequestDto;
 import com.jojoldu.book.web.dto.PostsUpdateRequestDto;
-import org.apache.coyote.Response;
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import org.junit.Test;
@@ -20,6 +19,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -47,12 +48,12 @@ public class PostsApiControllerTest {
 
         ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, requestDto, Long.class);
 
-        Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        Assertions.assertThat(responseEntity.getBody()).isGreaterThan(0L);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
         List<Posts> all = postsRepository.findAll();
-        Assertions.assertThat(all.get(0).getTitle()).isEqualTo(title);
-        Assertions.assertThat(all.get(0).getContent()).isEqualTo(content);
+        assertThat(all.get(0).getTitle()).isEqualTo(title);
+        assertThat(all.get(0).getContent()).isEqualTo(content);
     }
 
     @Test
@@ -74,13 +75,16 @@ public class PostsApiControllerTest {
         String url = "http://localhost:" + port +  "/api/v1/posts/" + updateId;
         HttpEntity<PostsUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
 
+        // HTTP 요청 전에 all 리스트 출력
+
         ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Long.class);
-        Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        Assertions.assertThat(responseEntity.getBody()).isGreaterThan(0L);
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
         List<Posts> all = postsRepository.findAll();
-        Assertions.assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle); // 업데이트된 값으로 비교
-        Assertions.assertThat(all.get(0).getContent()).isEqualTo(expectedContent); // 업데이트된 값으로 비교
+        assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle); // 업데이트된 값으로 비교
+        assertThat(all.get(0).getContent()).isEqualTo(expectedContent); // 업데이트된 값으로 비교
     }
 
 }
