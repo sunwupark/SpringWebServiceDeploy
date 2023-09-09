@@ -64,10 +64,13 @@ public class PostsApiControllerTest {
                 .build());
 
         Long updateId = savedPosts.getId();
-        String expectedTitle = "title2";
-        String exepctedContent = "content2";
+        String expectedTitle = "title2"; // 업데이트될 제목
+        String expectedContent = "content2"; // 업데이트될 내용
 
-        PostsUpdateRequestDto requestDto = PostsUpdateRequestDto.builder().title(expectedTitle).content(exepctedContent).build();
+        PostsUpdateRequestDto requestDto = PostsUpdateRequestDto.builder()
+                .title(expectedTitle)
+                .content(expectedContent)
+                .build();
         String url = "http://localhost:" + port +  "/api/v1/posts/" + updateId;
         HttpEntity<PostsUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
 
@@ -76,7 +79,8 @@ public class PostsApiControllerTest {
         Assertions.assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
         List<Posts> all = postsRepository.findAll();
-        Assertions.assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
-        Assertions.assertThat(all.get(0).getContent()).isEqualTo(exepctedContent);
+        Assertions.assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle); // 업데이트된 값으로 비교
+        Assertions.assertThat(all.get(0).getContent()).isEqualTo(expectedContent); // 업데이트된 값으로 비교
     }
+
 }
