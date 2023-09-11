@@ -1,4 +1,4 @@
-package com.jojoldu.book.service.posts;
+package com.jojoldu.book.service;
 
 import com.jojoldu.book.web.domain.posts.Posts;
 import com.jojoldu.book.web.domain.posts.PostsRepository;

@@ -1,6 +1,6 @@
 package com.jojoldu.book.web;
 
-import com.jojoldu.book.service.posts.PostsService;
+import com.jojoldu.book.service.PostsService;
 import com.jojoldu.book.web.dto.PostsResponseDto;
 import com.jojoldu.book.web.dto.PostsSaveRequestDto;
 import com.jojoldu.book.web.dto.PostsUpdateRequestDto;
