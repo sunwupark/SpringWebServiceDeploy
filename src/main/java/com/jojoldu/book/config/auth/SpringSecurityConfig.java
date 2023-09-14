@@ -22,7 +22,7 @@ public class SpringSecurityConfig {
             "/css/**",
             "/image/**",
             "/js/**",
-            "/h2-console/**"
+            "/h2-console/**",
     };
     // 인증 필요 리스트
     private static final String[] VERIFICATION_AUTH_LIST = {
@@ -40,7 +40,7 @@ public class SpringSecurityConfig {
                                 .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
                                 .requestMatchers(AUTH_WHITELIST).permitAll()
 //                                .requestMatchers("/", "/css/**", "/image/**", "/js/**", "/h2-console/**").permitAll()
-                                .requestMatchers(VERIFICATION_AUTH_LIST).hasRole(Role.USER.name())    // 권한 관리 대상을 지정하는 옵션, URL, HTTP 메서드별로 관리가 가능, "/" 등 지정된 URL들을 permitAll() 옵션을 통해 전체 열람 권한을 줌, "/api/v1/**"주소를 가진 API는 USER 권한을 가진 사람만 가능
+                                .requestMatchers(VERIFICATION_AUTH_LIST).permitAll()    // 권한 관리 대상을 지정하는 옵션, URL, HTTP 메서드별로 관리가 가능, "/" 등 지정된 URL들을 permitAll() 옵션을 통해 전체 열람 권한을 줌, "/api/v1/**"주소를 가진 API는 USER 권한을 가진 사람만 가능
                                 .anyRequest().authenticated()   // 설정된 값들 이외 나머지 URL들을 나타낸다. 여기선 authenticated()을 추가하여 나머지 URL들은 모두 인증된 사용자들에게만 허용. 즉, 인증된 사용자, 로그인한 사용자들만 허용
                 )
                 .logout().logoutSuccessUrl("/")
