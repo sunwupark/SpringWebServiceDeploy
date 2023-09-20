@@ -23,7 +23,7 @@ before_deploy:
   - cp scripts/*.sh appspec.yml build/libs/*.jar before-deploy/
   - cd before-deploy && zip -r before-deploy *
   - cd ../ && mv before-deploy/before-deploy.zip deploy/
-\
+
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY
